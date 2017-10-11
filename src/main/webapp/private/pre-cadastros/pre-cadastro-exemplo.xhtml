@@ -1,0 +1,161 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="imagem">
+		<h:graphicImage library="img" name="home.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		<h:outputText value="PRE-CADASTRO" />
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		<h:outputText
+			value="Listagem de todos os PRE-CADASTROS cadastrados no sistema." />
+	</ui:define>
+
+	<!-- 	<ui:define name="links"> -->
+	<!-- 		<h:form> -->
+	<!-- 			<p:commandLink styleClass="btn btn-orange" -->
+	<!-- 				oncomplete="PF('dlg').show();" process="@this" -->
+	<!-- 				action="#{preCadastroBean.clear()}" update="frm:dialogo" -->
+	<!-- 				title="Cadastrar (PRE_CADASTRO)"> -->
+	<!-- 				<div class="fa fa-plus-circle icon-link iconLink" /> -->
+	<!-- 				Cadastrar -->
+	<!-- 				<p:resetInput target="frm:dialogo" /> -->
+	<!-- 			</p:commandLink> -->
+	<!-- 		</h:form> -->
+	<!-- 	</ui:define> -->
+
+	<!-- 	<ui:define name="links-xs"> -->
+	<!-- 		<h:form> -->
+	<!-- 			<p:commandLink styleClass="btn btn-orange" -->
+	<!-- 				oncomplete="PF('dlg').show();" process="@this" -->
+	<!-- 				action="#{preCadastroBean.clear()}" update="frm:dialogo"> -->
+	<!-- 				<div class="fa fa-plus-circle icon-link iconLink" /> -->
+	<!-- 				Cadastrar -->
+	<!-- 			</p:commandLink> -->
+	<!-- 		</h:form> -->
+	<!-- 	</ui:define> -->
+
+	<ui:define name="conteudo">
+		<h:form id="frm">
+			<p:messages id="msg" closable="true" />
+
+			<div class="panel panel-default panel-busca">
+				<div class="panel-heading">
+					<div class="form-inline">
+						<div class="form-group">
+							<p:outputLabel value="String: " for="filter-string" />
+							<p:inputText id="filter-string" maxlength="20"
+								value="#{preCadastroBean.string}"
+								styleClass="form-control txt-busca">
+							</p:inputText>
+
+						</div>
+
+						<p:commandButton value="Pesquisar" icon="fa fa-search"
+							action="#{preCadastroBean.pesquisar()}"
+							update=":frm:pre-cadastros-table" process="@this filter-string"
+							styleClass="button-blue btn-busca" />
+
+					</div>
+				</div>
+			</div>
+
+			<p:dataTable value="#{preCadastroBean.strings}" var="string"
+				id="pre-cadastros-table" lazy="true" rows="25"
+				paginatorAlwaysVisible="false" paginator="true"
+				paginatorPosition="bottom"
+				emptyMessage="Nenhum registro encontrado!" class="resp">
+
+				<p:column headerText="Status" width="60" styleClass="centralizado">
+					<p:commandLink update="pre-cadastros-table frm:msg">
+
+						<h:panelGroup>
+							<i class="material-icons Red">remove_circle</i>
+						</h:panelGroup>
+
+						<!-- 						<f:setPropertyActionListener value="#{setores}" -->
+						<!-- 							target="#{preCadastroBean.cursoSetor}" /> -->
+						<!-- 						<p:tooltip /> -->
+					</p:commandLink>
+				</p:column>
+
+				<p:column id="string" headerText="String" width="300">
+					<h:outputText value="#{string}" />
+				</p:column>
+
+				<!-- 				<p:column id="Descrição" headerText="Descrição" width="300"> -->
+				<!-- 					<h:outputText value="#{setores.descricao}" /> -->
+				<!-- 				</p:column> -->
+
+				<!-- 				<p:column headerText="Editar" width="60" styleClass="centralizado"> -->
+				<!-- 					<p:commandLink oncomplete="PF('dlg').show();" update="frm:dialogo" -->
+				<!-- 						rendered="#{setores.ativo}" title="Editar dados" process="@this"> -->
+				<!-- 						<i class="material-icons Blue-Grey Icon-Hover">create</i> -->
+				<!-- 						<f:setPropertyActionListener value="#{setores}" -->
+				<!-- 							target="#{preCadastroBean.cursoSetor}" /> -->
+				<!-- 						<p:resetInput target="frm:dialogo" /> -->
+				<!-- 					</p:commandLink> -->
+
+				<!-- 					<h:panelGroup rendered="#{not setores.ativo}" id="editar"> -->
+				<!-- 						<i class="material-icons Blue-Grey-Light">create</i> -->
+				<!-- 						<p:tooltip for="editar" value="Editar desabilitado" /> -->
+				<!-- 					</h:panelGroup> -->
+				<!-- 				</p:column> -->
+			</p:dataTable>
+
+<!-- 			<p:dialog widgetVar="dlg" id="dialogo" width="400px" -->
+<!-- 				header="#{categoriadaSolicitacaoMB.novo ? 'Cadastrar' : 'Editar'} Setor" -->
+<!-- 				modal="true" resizable="false" showEffect="clip"> -->
+
+<!-- 				<p:messages id="msg-dialog" closable="true" /> -->
+
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-md-12"> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<p:outputLabel value="Nome: " for="nome-dialog" /> -->
+<!-- 							<p:inputText value="#{preCadastroBean.cursoSetor.nome}" -->
+<!-- 								id="nome-dialog" required="true" -->
+<!-- 								requiredMessage="Campo nome é obrigatório!" -->
+<!-- 								styleClass="form-control" /> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-md-12"> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<p:outputLabel value="Descrição: " for="descri-dialog" /> -->
+<!-- 							<p:inputTextarea value="#{preCadastroBean.cursoSetor.descricao}" -->
+<!-- 								styleClass="form-control" rows="5" id="descri-dialog" /> -->
+
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+<!-- 				<div class="panel-footer"> -->
+<!-- 					<p:commandButton value="Salvar" action="#{preCadastroBean.save}" -->
+<!-- 						styleClass="button-blue" icon="fa fa-floppy-o" update="msg-dialog" -->
+<!-- 						oncomplete="if (!args.validationFailed) PF('dlg').hide()" -->
+<!-- 						rendered="#{preCadastroBean.novo}" /> -->
+
+<!-- 					<p:commandButton styleClass="button-blue" value="Atualizar" -->
+<!-- 						rendered="#{not preCadastroBean.novo}" icon="fa fa-floppy-o" -->
+<!-- 						oncomplete="if (!args.validationFailed) PF('dlg').hide()" -->
+<!-- 						action="#{preCadastroBean.update}" update="msg-dialog" /> -->
+
+<!-- 					<p:spacer width="5px" /> -->
+
+<!-- 					<p:commandButton value="Cancelar" oncomplete="PF('dlg').hide();" -->
+<!-- 						styleClass="button-orange" icon="fa fa-ban" /> -->
+<!-- 				</div> -->
+<!-- 			</p:dialog> -->
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,269 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<!-- 	<f:metadata> -->
+	<!-- 		<f:event listener="#{dashboardBean.preRender()}" type="preRenderView" /> -->
+	<!-- 	</f:metadata> -->
+
+	<ui:define name="titulo-pagina">
+		Dashboard
+	</ui:define>
+
+	<ui:define name="imagem">
+		<p:graphicImage library="img" name="graph.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		<h:outputText value="Dashboard" />
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		<h:outputText value="Informações importantes do sistema." />
+	</ui:define>
+
+	<ui:define name="links-xs">
+		<h:form>
+
+		</h:form>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<p:messages autoUpdate="true" closable="true" />
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="titulo-sem-border">
+					<i class="fa  fa-fw  fa-bell animated tada" /> Quadro de Avisos
+				</div>
+
+				<div class="form-group">
+					<div class="card-informacao">
+						<div class="row">
+							<div class="col-md-12">
+								<p:outputLabel value="Seja bem-vindo(a)!" />
+							</div>
+							
+							<div class="col-md-12">
+								<p:link styleClass="link">
+									<p:outputLabel
+										value="Você tem #{sessaoBean.qtdNotificacoes} notificação(ões)!"
+										style="cursor: pointer !important;" />
+								</p:link>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 		<ui:fragment> -->
+		<!-- 			<div class="row"> -->
+		<!-- 				<div class="col-md-12"> -->
+		<!-- 					<div class="titulo-sem-border"> -->
+		<!-- 						<i class="fa  fa fa-pencil animated tada" /> Solicitações em -->
+		<!-- 						edição -->
+		<!-- 					</div> -->
+
+		<!-- 					<div class="form-group"> -->
+		<!-- 						<div class="card-informacao animated fadeInRight"> -->
+		<!-- 							<p:link styleClass="link"> -->
+		<!-- 								<p:outputLabel -->
+		<!-- 									value="Você tem 15 solicitação(es) em edição, clique aqui para continuar." -->
+		<!-- 									style="cursor: pointer !important;" /> -->
+		<!-- 							</p:link> -->
+		<!-- 						</div> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 			</div> -->
+		<!-- 		</ui:fragment> -->
+
+
+		<!-- 		<div class="dashboard-panel-titulo"> -->
+		<!-- 			<i class="fa  fa-fw	fa-rocket" /> Solicitações -->
+		<!-- 		</div> -->
+
+		<!-- 		CARDS -->
+
+		<!-- 		<div class="row"> -->
+		<!-- 			<p:link> -->
+		<!-- 				<div class="col-md-3"> -->
+		<!-- 					<div class="panel-total-projeto shadow-effect"> -->
+		<!-- 						<div class="panel-icon" style="background-color: #1976d2"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<i class="material-icons md-48 md-light">star</i> -->
+		<!-- 						</div> -->
+		<!-- 						<div class="panel-infor" style="background: #2196f3"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<div style="font-size: 16px" class="Fs16">Novas</div> -->
+		<!-- 							<div style="font-size: 26px">20</div> -->
+		<!-- 						</div> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 			</p:link> -->
+
+		<!-- 			<p:link> -->
+		<!-- 				<div class="col-md-3"> -->
+		<!-- 					<div class="panel-total-projeto shadow-effect"> -->
+		<!-- 						<div class="panel-icon" style="background-color: #1976d2"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<i class="material-icons md-48 md-light">star</i> -->
+		<!-- 						</div> -->
+		<!-- 						<div class="panel-infor" style="background: #2196f3"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<div style="font-size: 16px" class="Fs16">Novas</div> -->
+		<!-- 							<div style="font-size: 26px">25</div> -->
+		<!-- 						</div> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 			</p:link> -->
+
+		<!-- 			<p:link> -->
+		<!-- 				<div class="col-md-3"> -->
+		<!-- 					<div class="panel-total-projeto shadow-effect"> -->
+		<!-- 						<div class="panel-icon" style="background-color: #283593"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<i class="material-icons md-48 md-light">timeline</i> -->
+		<!-- 						</div> -->
+
+		<!-- 						<div class="panel-infor" style="background: #3f51b5"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<div style="font-size: 16px" class="Fs16">Em andamento</div> -->
+		<!-- 							<div style="font-size: 26px">30</div> -->
+		<!-- 						</div> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 			</p:link> -->
+
+		<!-- 			<p:link> -->
+		<!-- 				<div class="col-md-3"> -->
+		<!-- 					<div class="panel-total-projeto shadow-effect"> -->
+		<!-- 						<div class="panel-icon" style="background-color: #283593"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<i class="material-icons md-48 md-light">timeline</i> -->
+		<!-- 						</div> -->
+
+		<!-- 						<div class="panel-infor" style="background: #3f51b5"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<div style="font-size: 16px" class="Fs16">Em andamento</div> -->
+		<!-- 							<div style="font-size: 26px">35</div> -->
+		<!-- 						</div> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 			</p:link> -->
+
+		<!-- 			<p:link> -->
+		<!-- 				<div class="col-md-3"> -->
+		<!-- 					<div class="panel-total-projeto shadow-effect"> -->
+		<!-- 						<div class="panel-icon" style="background-color: #2E7D32;"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<i class="material-icons md-48 md-light">check_circle</i> -->
+		<!-- 						</div> -->
+
+		<!-- 						<div class="panel-infor" style="background-color: #4CAF50;"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<div style="font-size: 16px" class="Fs16">Concluídos</div> -->
+		<!-- 							<div style="font-size: 26px" class="animated pulse infinite"> -->
+		<!-- 								40</div> -->
+		<!-- 						</div> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 			</p:link> -->
+
+		<!-- 			<p:link> -->
+		<!-- 				<div class="col-md-3"> -->
+		<!-- 					<div class="panel-total-projeto shadow-effect"> -->
+		<!-- 						<div class="panel-icon" style="background-color: #2E7D32;"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<i class="material-icons md-48 md-light">check_circle</i> -->
+		<!-- 						</div> -->
+
+		<!-- 						<div class="panel-infor" style="background-color: #4CAF50;"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<div style="font-size: 16px" class="Fs16">Concluídos</div> -->
+		<!-- 							<div style="font-size: 26px" class="animated pulse infinite"> -->
+		<!-- 								45</div> -->
+		<!-- 						</div> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 			</p:link> -->
+
+		<!-- 			<p:link> -->
+		<!-- 				<div class="col-md-3"> -->
+		<!-- 					<div class="panel-total-projeto shadow-effect"> -->
+		<!-- 						<div class="panel-icon" style="background-color: #FF8C00"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<i class="material-icons md-48 md-light">cancel</i> -->
+		<!-- 						</div> -->
+
+		<!-- 						<div class="panel-infor" style="background-color: #FFA500"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<div style="font-size: 16px">Cancelado</div> -->
+		<!-- 							<div style="font-size: 26px">50</div> -->
+		<!-- 						</div> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 			</p:link> -->
+
+		<!-- 			<p:link> -->
+		<!-- 				<div class="col-md-3"> -->
+		<!-- 					<div class="panel-total-projeto shadow-effect"> -->
+		<!-- 						<div class="panel-icon" style="background-color: #FF8C00"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<i class="material-icons md-48 md-light">cancel</i> -->
+		<!-- 						</div> -->
+
+		<!-- 						<div class="panel-infor" style="background-color: #FFA500;"> -->
+		<!-- 							<div class="marginTop10" /> -->
+		<!-- 							<div style="font-size: 16px">Cancelado</div> -->
+		<!-- 							<div style="font-size: 26px">55</div> -->
+		<!-- 						</div> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 			</p:link> -->
+		<!-- 		</div> -->
+
+		<!-- GRÁFICOS -->
+
+		<!-- 		<h:panelGroup layout="block" styleClass="row graficos"> -->
+		<!-- 			<div class="col-md-7"> -->
+		<!-- 				<div class="dashboard-panel-titulo"> -->
+		<!-- 					<i class="fa fa-line-chart" /> Quantidade de solicitações -->
+		<!-- 					realizadas por período. -->
+		<!-- 				</div> -->
+
+		<!-- 				<div class="marginTop10" /> -->
+
+		<!-- 				Gráfico -->
+		<!-- 			</div> -->
+
+		<!-- 			<div class="col-md-5"> -->
+		<!-- 				<div class="dashboard-panel-titulo"> -->
+		<!-- 					<i class="fa  fa-fw fa-trophy" /> Setores (Ranking) -->
+		<!-- 				</div> -->
+
+		<!-- 				Gráfico -->
+		<!-- 			</div> -->
+		<!-- 		</h:panelGroup> -->
+
+		<!-- 		<h:panelGroup layout="block" styleClass="row"> -->
+		<!-- 			<div class="col-md-12"> -->
+		<!-- 				<div class="dashboard-panel-titulo"> -->
+		<!-- 					<i class="fa fa-line-chart" /> Quantidade de solicitações -->
+		<!-- 					realizadas por período. -->
+		<!-- 				</div> -->
+
+		<!-- 				<div class="marginTop10" /> -->
+
+		<!-- 				Gráfico -->
+		<!-- 			</div> -->
+		<!-- 		</h:panelGroup> -->
+
+		<div style="clear: both;" />
+	</ui:define>
+
+</ui:composition>

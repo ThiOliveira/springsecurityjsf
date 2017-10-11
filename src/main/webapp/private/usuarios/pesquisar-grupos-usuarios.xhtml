@@ -1,0 +1,146 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo-pagina">
+		<h:outputText value="Pesquisar Grupos de Usuários" />
+	</ui:define>
+
+	<ui:define name="imagem">
+		<h:graphicImage library="img" name="grupo.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		<h:outputText value="Pesquisar Grupos de Usuários" />
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		<h:outputText
+			value="Listagem de grupos de usuários cadastrados no sistema." />
+	</ui:define>
+
+	<ui:define name="links">
+		<h:form>
+			<p:commandLink
+				action="cadastrar-grupo-usuario.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" title="Cadastrar Grupo de Usuário"
+				ajax="false">
+				<div class="fa fa-plus-circle icon-link iconLink" />
+				Cadastrar
+			</p:commandLink>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="links-xs">
+		<h:form>
+			<p:commandLink
+				action="cadastrar-grupo-usuario.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" title="Cadastrar Grupo de Usuário"
+				ajax="false">
+				<div class="fa fa-plus-circle icon-link iconLink" />
+				Cadastrar
+			</p:commandLink>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="frm">
+			<p:messages id="msg" closable="true" />
+
+			<p:dataTable value="#{pesquisarGruposUsuariosBean.grupos}"
+				var="grupo" id="grupos-table" lazy="true" rows="25"
+				paginatorAlwaysVisible="false" paginator="true"
+				paginatorPosition="bottom" emptyMessage="Nenhum grupo encontrado!"
+				class="resp">
+
+				<p:column headerText="Status" width="60" styleClass="centralizado">
+					<p:commandLink
+						action="#{pesquisarGruposUsuariosBean.mudarStatus()}"
+						update="grupos-table frm:msg" process="@this"
+						title="#{grupo.ativo ? 'Desativar' : 'Ativar'}">
+
+						<h:panelGroup rendered="#{grupo.ativo}">
+							<i class="material-icons Green">check_circle</i>
+						</h:panelGroup>
+
+						<h:panelGroup rendered="#{not grupo.ativo}">
+							<i class="material-icons Red">remove_circle</i>
+						</h:panelGroup>
+
+						<f:setPropertyActionListener value="#{grupo}"
+							target="#{pesquisarGruposUsuariosBean.grupo}" />
+						<p:tooltip />
+					</p:commandLink>
+				</p:column>
+
+				<p:column id="nome" headerText="Nome" width="300">
+					<h:outputText value="#{grupo.nome}" />
+				</p:column>
+
+				<p:column headerText="Permissões" width="50"
+					styleClass="centralizado">
+					<p:commandLink
+						action="#{pesquisarGruposUsuariosBean.permissoesPorGrupo()}">
+						<i class="material-icons Blue-Grey Icon-Hover">visibility</i>
+						<f:setPropertyActionListener value="#{grupo.id}"
+							target="#{pesquisarGruposUsuariosBean.id}" />
+						<p:resetInput target="frm-dialogo" />
+					</p:commandLink>
+				</p:column>
+
+				<p:column headerText="Editar" width="50" styleClass="centralizado">
+					<p:link
+						outcome="/private/usuarios/cadastrar-grupo-usuario.xhtml?faces-redirect=true"
+						rendered="#{grupo.ativo}" title="Editar dados" process="@this">
+						<i class="material-icons Blue-Grey Icon-Hover">create</i>
+						<f:param name="id" value="#{grupo.encodedId()}" />
+					</p:link>
+
+					<h:panelGroup rendered="#{not grupo.ativo}" id="editar">
+						<i class="material-icons Blue-Grey-Light">create</i>
+						<p:tooltip for="editar" value="Editar desabilitado" />
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<h:form id="frm-dialogo">
+			<p:dialog widgetVar="dlg" id="dialogo" width="500px"
+				header="Visualizar Permissões" modal="true" resizable="false"
+				showEffect="clip" closeOnEscape="true">
+
+				<p:messages id="msg-dialog" closable="true" />
+
+				<div class="row">
+					<div class="col-md-12">
+						<ul>
+							<ui:repeat var="permissao"
+								value="#{pesquisarGruposUsuariosBean.grupo.permissoes}">
+								<li>#{permissao.nome} - #{permissao.descricao}</li>
+							</ui:repeat>
+						</ul>
+					</div>
+				</div>
+
+				<div class="panel-footer">
+					<p:button value="Editar" styleClass="button-blue"
+						icon="fa fa-floppy-o"
+						outcome="/private/usuarios/cadastrar-grupo-usuario.xhtml?faces-redirect=true"
+						title="Editar dados">
+						<f:param name="id"
+							value="#{pesquisarGruposUsuariosBean.encodedId}" />
+					</p:button>
+
+					<p:spacer width="5px" />
+
+					<p:commandButton value="Fechar" oncomplete="PF('dlg').hide();"
+						styleClass="button-orange" icon="fa fa-ban" />
+				</div>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,149 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo-pagina">
+		<h:outputText value="Cadastrar Usuário" />
+	</ui:define>
+
+	<ui:define name="imagem">
+		<h:graphicImage library="img" name="add-user.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		<h:outputText value="Cadastrar Usuário" />
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		<h:outputText value="Tela para cadastro de um novo usuário" />
+	</ui:define>
+
+	<ui:define name="links">
+		<h:form>
+			<p:commandLink action="pesquisar-usuarios.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" title="Listar Usuários" ajax="false">
+				<div class="fa fa-th-list icon-link iconLink" />
+				Listar
+			</p:commandLink>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="links-xs">
+		<h:form>
+			<p:commandLink action="pesquisar-usuarios.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" ajax="false">
+				<div class="fa fa-th-list icon-link iconLink" />
+				Listar
+			</p:commandLink>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="frm">
+
+			<p:messages id="msg" closable="true" />
+
+			<h:panelGroup layout="block" styleClass="row">
+				<h:panelGroup layout="block" styleClass="col-md-4">
+					<div class="form-group">
+						<p:outputLabel value="Matrícula: " for="matricula" />
+						<p:inputText value="#{cadastrarUsuarioBean.usuario.matricula}"
+							id="matricula" styleClass="form-control" required="true"
+							requiredMessage="Campo 'MATRÍCULA' obrigatório" />
+					</div>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="col-md-8">
+					<div class="form-group">
+						<p:outputLabel value="Nome: " for="nome" />
+						<p:inputText value="#{cadastrarUsuarioBean.usuario.nome}"
+							id="nome" styleClass="form-control" required="true"
+							requiredMessage="Campo 'NOME' obrigatório" />
+					</div>
+				</h:panelGroup>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="row">
+				<h:panelGroup layout="block" styleClass="col-md-4">
+					<div class="form-group">
+						<p:outputLabel value="CPF: " for="cpf" />
+						<p:inputMask value="#{cadastrarUsuarioBean.usuario.cpf}" id="cpf"
+							styleClass="form-control" required="true" mask="999.999.999-99"
+							requiredMessage="Campo 'CPF' obrigatório" />
+					</div>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="col-md-8">
+					<div class="form-group">
+						<p:outputLabel value="E-mail: " for="email" />
+						<p:inputText value="#{cadastrarUsuarioBean.usuario.email}"
+							id="email" styleClass="form-control" required="true"
+							requiredMessage="Campo 'E-MAIL' obrigatório" />
+					</div>
+				</h:panelGroup>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="row"
+				rendered="#{cadastrarUsuarioBean.usuario.cadastrado}">
+				<div class="col-md-12">
+					<div class="form-group">
+						<p:outputLabel value="Ativo? " styleClass="myLabel" />
+						<p:outputLabel value=" *" styleClass="campoObrigatorio" />
+
+						<div class="radio-inline" style="padding: 0px;">
+							<p:selectOneRadio value="#{cadastrarUsuarioBean.usuario.ativo}"
+								id="radioPergunta">
+								<f:selectItem itemLabel="SIM" itemValue="true" />
+								<f:selectItem itemLabel="NÃO" itemValue="false" />
+							</p:selectOneRadio>
+						</div>
+					</div>
+				</div>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<p:outputLabel id="grupos" value="Grupos de usuários:"
+							styleClass="myLabel" for="cb-grupos" />
+
+						<div class="inline-checkbox">
+							<p:selectManyCheckbox id="cb-grupos" required="true" columns="5"
+								converter="grupoUsuarioConverter"
+								value="#{cadastrarUsuarioBean.usuario.grupos}"
+								layout="responsive">
+								<f:selectItems value="#{cadastrarUsuarioBean.grupos}"
+									var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
+
+								<f:attribute name="collectionType" value="java.util.ArrayList" />
+							</p:selectManyCheckbox>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="panel-footer">
+						<p:commandButton value="Salvar"
+							action="#{cadastrarUsuarioBean.salvar()}"
+							styleClass="button-blue" icon="fa fa-floppy-o"
+							update="frm frm:msg"
+							rendered="#{cadastrarUsuarioBean.usuario.novo}" />
+
+						<p:commandButton styleClass="button-blue" value="Atualizar"
+							action="#{cadastrarUsuarioBean.atualizar()}"
+							rendered="#{cadastrarUsuarioBean.usuario.cadastrado}"
+							icon="fa fa-pencil" update="frm frm:msg" />
+
+						<p:spacer width="5px" />
+
+						<p:button value="Cancelar" outcome="pesquisar-usuarios.xhtml"
+							styleClass="button-orange" icon="fa fa-ban" />
+					</div>
+				</div>
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

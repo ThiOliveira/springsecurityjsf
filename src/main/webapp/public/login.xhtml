@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:viewParam name="dummy" />
+	<f:event listener="#{loginBean.preRender()}" type="preRenderView" />
+</f:metadata>
+
+<h:head>
+	<f:facet name="first">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+
+	<title>Login | Template</title>
+
+	<h:outputStylesheet library="styles" name="login.css" />
+	<h:outputStylesheet library="styles" name="animate.css" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{facesContext.externalContext.requestContextPath}/resources/img/favicon.ico" />
+	<h:outputScript target="body" library="primefaces"
+		name="jquery/jquery.js" />
+</h:head>
+
+<h:body>
+	<h:form id="form-login" prependId="false">
+		<div class="ui-fluid">
+			<div class="login">
+				<div class="login-screen animated fadeIn">
+					<div class="app-title">
+						<h1>Login</h1>
+						<h4>Bem vindo ao Template!</h4>
+						<hr />
+						<p:graphicImage library="img" name="logo-unicatolica.png"
+							styleClass="logo" />
+					</div>
+
+					<div align="center">
+						<p:messages id="msgs" closable="true"
+							styleClass="msgs" />
+					</div>
+
+					<div class="login-form">
+						<p:panelGrid columns="1" styleClass="panelgrid-noborder"
+							style="width: 100%" layout="grid">
+							<p:focus for="username" />
+							<h:panelGrid columns="2" styleClass="ui-g-12" cellspacing="0"
+								cellpadding="0">
+								<h:outputLabel for="username"
+									styleClass="login-field-icon fa fa-user icon" />
+								<p:inputText type="text" styleClass="login-field"
+									placeholder="MATRÍCULA" id="username" required="true" />
+							</h:panelGrid>
+
+							<h:panelGrid columns="2" styleClass="ui-g-12">
+								<h:outputLabel for="password"
+									styleClass="login-field-icon fa fa-lock icon" />
+								<p:password styleClass="password" placeholder="SENHA"
+									id="password" required="true" />
+							</h:panelGrid>
+						</p:panelGrid>
+
+						<div class="ui-g-12">
+							<p:commandButton styleClass="btn btn-primary btn-large btn-block"
+								value="ACESSAR" ajax="false" action="#{loginBean.acessar}"
+								update="msgs" />
+						</div>
+						<!-- <a -->
+						<!-- class="login-link" href="#">Lost your password?</a> -->
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</h:form>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("form :input").focus(function() {
+			  $("label[for='" + this.id + "']").addClass("icon-focus");
+			}).blur(function() {
+			  $("label").removeClass("icon-focus");
+			});
+		});
+	</script>
+</h:body>
+</html>

@@ -1,0 +1,123 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo-pagina">
+		<h:outputText value="Cadastrar Grupo de Usuários" />
+	</ui:define>
+
+	<ui:define name="imagem">
+		<h:graphicImage library="img" name="add-user.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		<h:outputText value="Cadastrar Grupo de Usuários" />
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		<h:outputText value="Tela para cadastro de um novo grupo de usuários" />
+	</ui:define>
+
+	<ui:define name="links">
+		<h:form>
+			<p:commandLink
+				action="pesquisar-grupos-usuarios.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" title="Listar Usuários" ajax="false">
+				<div class="fa fa-th-list icon-link iconLink" />
+				Listar
+			</p:commandLink>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="links-xs">
+		<h:form>
+			<p:commandLink
+				action="pesquisar-grupos-usuarios.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" ajax="false">
+				<div class="fa fa-th-list icon-link iconLink" />
+				Listar
+			</p:commandLink>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="frm">
+
+			<p:messages id="msg" closable="true" />
+
+			<h:panelGroup layout="block" styleClass="row">
+				<h:panelGroup layout="block" styleClass="col-md-6">
+					<div class="form-group">
+						<p:outputLabel value="Nome: " for="nome" />
+						<p:inputText value="#{cadastrarGrupoUsuarioBean.grupo.nome}"
+							id="nome" styleClass="form-control" required="true"
+							requiredMessage="Campo 'NOME' obrigatório" />
+					</div>
+				</h:panelGroup>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="row"
+				rendered="#{cadastrarGrupoUsuarioBean.grupo.cadastrado}">
+				<div class="col-md-12">
+					<div class="form-group">
+						<p:outputLabel value="Ativo? " styleClass="myLabel" />
+						<p:outputLabel value=" *" styleClass="campoObrigatorio" />
+
+						<div class="radio-inline" style="padding: 0px;">
+							<p:selectOneRadio
+								value="#{cadastrarGrupoUsuarioBean.grupo.ativo}"
+								id="radioPergunta">
+								<f:selectItem itemLabel="SIM" itemValue="true" />
+								<f:selectItem itemLabel="NÃO" itemValue="false" />
+							</p:selectOneRadio>
+						</div>
+					</div>
+				</div>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<p:outputLabel value="Permissões: " styleClass="myLabel"
+							for="permissoes" />
+
+						<p:pickList id="permissoes"
+							value="#{cadastrarGrupoUsuarioBean.permissoes}" var="permissao"
+							itemLabel="#{permissao.descricao}" itemValue="#{permissao}"
+							responsive="true" converter="permissaoConverter" required="true"
+							requiredMessage="Adicione pelo menos uma permissão para o grupo de usuários">
+
+							<f:facet name="sourceCaption">Acesso negado</f:facet>
+							<f:facet name="targetCaption">Acesso permitido</f:facet>
+						</p:pickList>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="panel-footer">
+						<p:commandButton value="Salvar"
+							action="#{cadastrarGrupoUsuarioBean.salvar()}"
+							styleClass="button-blue" icon="fa fa-floppy-o"
+							update="frm frm:msg"
+							rendered="#{cadastrarGrupoUsuarioBean.grupo.novo}" />
+
+						<p:commandButton styleClass="button-blue" value="Atualizar"
+							action="#{cadastrarGrupoUsuarioBean.atualizar()}"
+							rendered="#{cadastrarGrupoUsuarioBean.grupo.cadastrado}"
+							icon="fa fa-pencil" update="frm frm:msg" />
+
+						<p:spacer width="5px" />
+
+						<p:button value="Cancelar"
+							outcome="pesquisar-grupos-usuarios.xhtml"
+							styleClass="button-orange" icon="fa fa-ban" />
+					</div>
+				</div>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+</ui:composition>

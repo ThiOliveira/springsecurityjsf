@@ -1,0 +1,96 @@
+.panel-total-projeto {
+	width: 90%;
+	margin-left:5%;
+	margin-right:5%; 
+	height: 70px; 
+	float: left; 
+	border-radius: 4px;
+	margin-bottom: 7px
+}
+
+.dashboard-panel-titulo {
+	width: 96%;
+	border-bottom: dashed 1px #555; 
+	padding: 10px 4px; 
+	margin-bottom: 20px;
+	color: #263238;
+	font-size: 18px
+}
+
+.titulo-sem-border {
+	font-size: 18px; 
+	color: #263238; 
+	margin-bottom: 10px
+}
+
+.card-informacao {
+	background: #f2f2f2; 
+	border: 1px solid #CCC; 
+	border-radius: 3px; 
+	padding: 10px 10px; 
+	font-size: 14px;
+	color: #263238;
+}
+
+.panel-icon {
+	width: 30%;
+	height: 70px; 
+	float: left;
+	border-radius: 3px 0px 0px 3px;
+	text-align: center;
+}
+
+.panel-infor {
+	width: 70%; 
+	height: 70px; 
+	float: left;
+	border-radius: 0px 3px 3px 0px;
+	text-align: center;
+	color: #FFF;
+	font-weight: bold;
+}
+
+.card-green {
+	
+}
+
+.marginTop10 {
+	height: 10px;
+}
+
+.marginTop20 {
+	height: 20px;
+}
+
+.marginTop30 {
+	height: 30px;
+}
+
+.Center {
+	text-align: center;
+}
+
+.FS16 {
+	font-size: 16px;
+}
+
+.FS18 {
+	font-size: 18px;
+}
+
+.FS22 {
+	font-size: 22px;
+}
+
+.FS24 {
+	font-size: 24px;
+}
+
+.graficos{
+	margin-top:15px;
+}
+@media (max-width:550px){
+	.graficos{
+		display:none;
+	}
+}

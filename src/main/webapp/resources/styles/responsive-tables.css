@@ -1,0 +1,56 @@
+/* REFLOW ON 500px */
+.resp {
+	border: 0px solid #ccc;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;
+}
+
+.resp tr {
+	padding: 5px;
+}
+
+.resp th, resp td {
+	padding: 10px;
+	/* text-align: center;
+	vertical-align: middle; */
+}
+
+.resp th {
+	font-size: 14px;
+	letter-spacing: 1px;
+}
+
+.sub-tabela thead {
+	visibility: hidden;
+}
+@media (max-width: 700px){
+	.resp th, .resp td {
+		font-size: 11px;
+	}		
+}
+
+@media screen and (max-width: 500px) {
+	.resp {
+		border: 0;
+	}
+	.resp thead {
+		display: none;
+	}
+	.resp tr {
+		margin-bottom: 10px;
+		display: block;
+		border-bottom: 0px solid #ddd;
+	}
+	.resp td {
+		display: block;
+		text-align: center !important;
+	}
+	.resp td:before {
+		content: attr(data-label);
+		float: left;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+}

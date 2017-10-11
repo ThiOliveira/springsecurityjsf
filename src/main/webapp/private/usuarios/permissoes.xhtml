@@ -1,0 +1,124 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo-pagina">
+		<h:outputText value="Permissões" />
+	</ui:define>
+
+	<ui:define name="imagem">
+		<h:graphicImage library="img" name="grupo.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		<h:outputText value="Permissões" />
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		<h:outputText value="Listagem de permissões cadastradas no sistema." />
+	</ui:define>
+
+	<ui:define name="links">
+		<h:form>
+			<p:commandLink oncomplete="PF('dlg').show();" process="@this"
+				action="#{permissaoBean.clear}" update="frm-dialogo"
+				styleClass="btn btn-orange" title="Cadastrar Permissão">
+				<div class="fa fa-plus-circle icon-link iconLink" />
+				Cadastrar
+			</p:commandLink>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="links-xs">
+		<h:form>
+			<p:commandLink oncomplete="PF('dlg').show();" process="@this"
+				action="#{permissaoBean.clear}" update="frm-dialogo"
+				styleClass="btn btn-orange">
+				<div class="fa fa-plus-circle icon-link iconLink" />
+				Cadastrar	
+			</p:commandLink>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="frm">
+			<p:messages id="msg" closable="true" />
+
+			<p:dataTable value="#{permissaoBean.permissoes}" var="permissao"
+				id="permissoes-table" lazy="true" rows="25"
+				paginatorAlwaysVisible="false" paginator="true"
+				paginatorPosition="bottom"
+				emptyMessage="Nenhum permissão encontrado!" class="resp">
+
+				<p:column id="nome" headerText="Nome" width="100"
+					styleClass="centralizado">
+					<h:outputText value="#{permissao.nome}" />
+				</p:column>
+
+				<p:column id="descricao" headerText="Descrição" width="300">
+					<h:outputText value="#{permissao.descricao}" />
+				</p:column>
+
+				<p:column headerText="Editar" width="60" styleClass="centralizado">
+					<p:commandLink oncomplete="PF('dlg').show();" update="frm-dialogo"
+						title="Editar dados" process="@this">
+						<i class="material-icons Blue-Grey Icon-Hover">create</i>
+						<f:setPropertyActionListener value="#{permissao}"
+							target="#{permissaoBean.permissao}" />
+						<p:resetInput target="frm-dialogo" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+
+		<h:form id="frm-dialogo">
+			<p:dialog widgetVar="dlg" id="dialogo" width="500px"
+				header="#{permissaoBean.permissao.nova ? 'Cadastrar' : 'Editar'} Permissão"
+				modal="true" resizable="false" showEffect="clip">
+
+				<p:messages id="msg-dialog" closable="true" />
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<p:outputLabel value="Nome: " for="nome-dialog" />
+							<p:inputText value="#{permissaoBean.permissao.nome}"
+								id="nome-dialog" styleClass="form-control" required="true"
+								requiredMessage="Campo nome obrigatório" />
+						</div>
+
+						<div class="form-group">
+							<p:outputLabel value="Descrição: " for="descricao-dialog" />
+							<p:inputText value="#{permissaoBean.permissao.descricao}"
+								id="descricao-dialog" styleClass="form-control" required="true"
+								requiredMessage="Campo descrição obrigatório" />
+						</div>
+					</div>
+				</div>
+
+				<div class="panel-footer">
+					<p:commandButton value="Salvar" action="#{permissaoBean.salvar()}"
+						styleClass="button-blue" icon="fa fa-floppy-o"
+						update="dialogo msg-dialog"
+						oncomplete="if (!args.validationFailed) PF('dlg').hide()"
+						rendered="#{permissaoBean.permissao.nova}" />
+
+					<p:commandButton styleClass="button-blue" value="Atualizar"
+						rendered="#{permissaoBean.permissao.cadastrada}"
+						icon="fa fa-floppy-o" action="#{permissaoBean.atualizar()}"
+						oncomplete="PF('dlg').hide();" />
+
+					<p:spacer width="5px" />
+
+					<p:commandButton value="Cancelar" oncomplete="PF('dlg').hide();"
+						styleClass="button-orange" icon="fa fa-ban" />
+				</div>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

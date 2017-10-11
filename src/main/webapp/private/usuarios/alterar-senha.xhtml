@@ -1,0 +1,161 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Alterar Senha | Template</title>
+
+	<meta name="viewport" content="width=device-width" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/dist/css/AdminLTE.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/dist/css/skins/skin-unicatolica.min.css" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+	<link rel="stylesheet"
+		href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{facesContext.externalContext.requestContextPath}/resources/img/favicon.ico" />
+
+	<h:outputStylesheet library="styles" name="layout-aux.css" />
+	<h:outputStylesheet library="styles" name="ripple-effect.css" />
+	<h:outputStylesheet library="styles" name="estilo.css" />
+	<h:outputStylesheet library="styles" name="custom.css" />
+	<h:outputStylesheet library="styles" name="letter-avatar.css" />
+	<h:outputStylesheet library="styles" name="dashboard.css" />
+	<h:outputStylesheet library="iconfont" name="material-icons.css" />
+
+	<h:outputScript target="body" library="primefaces"
+		name="jquery/jquery.js" />
+	<h:outputScript target="body" library="js" name="app.js" />
+	<h:outputScript target="body" library="js" name="myFunctions.js" />
+	<h:outputScript target="body" library="bootstrap/js"
+		name="bootstrap.min.js" />
+	<h:outputScript target="body" library="dist/js" name="app.js" />
+	<h:outputScript target="body" library="dist/js" name="demo.js" />
+	<h:outputScript target="body" library="js" name="letter-avatar.js" />
+	<h:outputScript target="body" library="js" name="menu.js" />
+	
+	<style>
+		.sidebar-menu, .notifications-menu {
+			display: none !important;
+		}
+	</style>
+</h:head>
+
+<h:body class="hold-transition skin-unicatolica sidebar-mini"
+	style="background: #ecf0f5">
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide();" oncomplete="configurarMoeda();" />
+
+	<p:dialog header="Carregando..." widgetVar="statusDialog" modal="true"
+		closable="false" resizable="false" showHeader="true" draggable="false"
+		style="text-align:center;">
+		<p:graphicImage library="img" name="loading-unicatolica.gif"
+			width="55" height="55" />
+
+	</p:dialog>
+
+	<div class="wrapper fixed">
+		<!-- Main Header -->
+		<header class="main-header">
+			<ui:include src="/WEB-INF/templates/cabecalho.xhtml" />
+		</header>
+		<aside class="main-sidebar">
+			<ui:include src="/WEB-INF/templates/menu.xhtml" />
+		</aside>
+		<div class="content-wrapper">
+			<section class="content-header" style="padding-bottom: 20px;">
+				<div class="card shadow-effect hei-auto-on-mobile">
+					<div class="panel-titulo">
+
+						<h:graphicImage library="img" name="key.png" />
+
+						<h1>
+							<h:outputText value="Alterar Senha" />
+						</h1>
+
+						<h2>
+							<h:outputText value="Tela para alterar senha do usuário" />
+						</h2>
+
+					</div>
+
+					<div class="content">
+						<h:form id="frm">
+
+							<p:messages id="msg" closable="true" />
+
+							<h:panelGroup layout="block" styleClass="row">
+								<h:panelGroup layout="block" styleClass="col-md-4">
+									<div class="form-group">
+										<p:outputLabel value="Senha Atual: " for="senha-atual" />
+										<p:password value="#{alterarSenhaBean.senhaAtual}"
+											id="senha-atual" styleClass="form-control" required="true"
+											requiredMessage="Campo 'Senha Atual' obrigatório" />
+											<p:focus for="senha-atual" />
+									</div>
+								</h:panelGroup>
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" styleClass="row">
+								<h:panelGroup layout="block" styleClass="col-md-4">
+									<div class="form-group">
+										<p:outputLabel value="Nova Senha: " for="senha" />
+										<p:password value="#{alterarSenhaBean.senhaUsuario}"
+											id="senha" styleClass="form-control" required="true"
+											requiredMessage="Campo 'SENHA' obrigatório"
+											match="confirmar-senha" label="Senha" size="40"
+											validatorMessage="As senhas informadas são diferentes, digite novamente!"
+											feedback="true" promptLabel="Digite sua senha"
+											weakLabel="Nível da senha: fraco"
+											goodLabel="Nível da senha: bom"
+											strongLabel="Nível da senha: forte" />
+									</div>
+								</h:panelGroup>
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" styleClass="row">
+								<h:panelGroup layout="block" styleClass="col-md-4">
+									<div class="form-group">
+										<p:outputLabel value="Confirmação de Senha: "
+											for="confirmar-senha" />
+										<p:password styleClass="form-control" id="confirmar-senha"
+											required="true"
+											requiredMessage="Confirme sua senha para prosseguir" />
+									</div>
+								</h:panelGroup>
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" styleClass="row">
+								<div class="col-md-12">
+									<div class="panel-footer">
+										<p:commandButton value="Salvar"
+											action="#{alterarSenhaBean.confirmar()}"
+											styleClass="button-blue" icon="fa fa-floppy-o"
+											update="frm frm:msg" />
+
+										<p:spacer width="5px" />
+
+										<p:button value="Cancelar" href="/logout"
+											styleClass="button-orange" icon="fa fa-ban" />
+									</div>
+								</div>
+							</h:panelGroup>
+						</h:form>
+					</div>
+				</div>
+			</section>
+		</div>
+		<footer class="main-footer">
+			<ui:include src="/WEB-INF/templates/rodape.xhtml" />
+		</footer>
+	</div>
+</h:body>
+</html>

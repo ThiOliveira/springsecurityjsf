@@ -4,7 +4,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.edu.unicatolica</groupId>
-	<artifactId>inscricao-ead</artifactId>
+	<artifactId>meusistema</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -187,7 +187,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>inscricao-ead</finalName>
+		<finalName>meusistema</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
